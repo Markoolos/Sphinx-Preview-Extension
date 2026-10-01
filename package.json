@@ -1,0 +1,116 @@
+{
+  "name": "sphinx-preview",
+  "displayName": "Sphinx Preview",
+  "description": "Build and preview Sphinx documentation with live reload.",
+  "version": "0.1.0",
+  "publisher": "Markoolos",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Markoolos/Sphinx-Preview-Extension.git"
+  },
+  "homepage": "https://github.com/Markoolos/Sphinx-Preview-Extension#readme",
+  "bugs": {
+    "url": "https://github.com/Markoolos/Sphinx-Preview-Extension/issues"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "main": "./extension.js",
+  "activationEvents": [
+    "onCommand:sphinxPreview.start",
+    "onCommand:sphinxPreview.stop",
+    "onCommand:sphinxPreview.open"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "sphinxPreview.start",
+        "title": "Sphinx: Start Preview"
+      },
+      {
+        "command": "sphinxPreview.stop",
+        "title": "Sphinx: Stop Preview"
+      },
+      {
+        "command": "sphinxPreview.open",
+        "title": "Sphinx: Open Preview"
+      }
+    ],
+    "configuration": {
+      "title": "Sphinx Preview",
+      "properties": {
+        "sphinxPreview.sourceDirectory": {
+          "type": "string",
+          "default": "source-docs",
+          "description": "Directory containing the Sphinx conf.py, relative to the project root. Supports ${workspaceFolder}."
+        },
+        "sphinxPreview.outputDirectory": {
+          "type": "string",
+          "default": "${documentationRoot}/_build/html",
+          "description": "Directory for generated HTML. Supports ${workspaceFolder}, ${projectRoot}, and ${documentationRoot}. Relative paths are resolved from the project root."
+        },
+        "sphinxPreview.pipIndexUrl": {
+          "type": "string",
+          "default": "https://pypi.org/simple",
+          "description": "Python package index used to initialize the documentation virtual environment. Leave empty to use the user's pip configuration."
+        },
+        "sphinxPreview.plantUmlJarPath": {
+          "type": "string",
+          "default": "",
+          "description": "Optional path to plantuml.jar. Supports ${workspaceFolder}, ${projectRoot}, and ${documentationRoot}. Leave empty to use the path from conf.py."
+        },
+        "sphinxPreview.preBuildCommands": {
+          "type": "array",
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "description": "PowerShell commands to run once before the preview server starts. Supports ${workspaceFolder}, ${projectRoot}, and ${documentationRoot}. A command failure prevents startup."
+        },
+        "sphinxPreview.postBuildCommands": {
+          "type": "array",
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "description": "PowerShell commands to run once after the initial preview becomes available. Supports ${workspaceFolder}, ${projectRoot}, and ${documentationRoot}. A command failure leaves the preview running."
+        },
+        "sphinxPreview.host": {
+          "type": "string",
+          "default": "127.0.0.1",
+          "description": "Host interface used by the preview server."
+        },
+        "sphinxPreview.port": {
+          "type": "number",
+          "default": 8000,
+          "minimum": 1,
+          "maximum": 65535,
+          "description": "Port used by the preview server."
+        },
+        "sphinxPreview.powerShellPath": {
+          "type": "string",
+          "default": "powershell.exe",
+          "description": "PowerShell executable used to run the preview script."
+        },
+        "sphinxPreview.openOnStart": {
+          "type": "boolean",
+          "default": true,
+          "description": "Open the preview in VS Code after the server becomes ready."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "check": "node --check extension.js",
+    "package": "npx @vscode/vsce package"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.85.0",
+    "@vscode/vsce": "^3.2.1"
+  },
+  "license": "MIT",
+  "private": true
+}
